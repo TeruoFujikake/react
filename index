@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV 表示</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  </head>
+  <body>
+    <h1>CSV データの表示</h1>
+    <table border="1" id="csvTable"></table>
+
+    <script>
+      // CSV ファイルの URL（GitHub にアップした CSV の URL）
+      const csvUrl =
+        "https://github.com/TeruoFujikake/react/blob/main/React.csv";
+
+      // CSV を取得して表示
+      fetch(csvUrl)
+        .then((response) => response.text())
+        .then((data) => {
+          const parsedData = Papa.parse(data, { header: true }); // ヘッダーありでパース
+          const table = document.getElementById("csvTable");
+
+          // ヘッダーを作成
+          const headerRow = document.createElement("tr");
+          Object.keys(parsedData.data[0]).forEach((header) => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
+          table.appendChild(headerRow);
+
+          // データを表示
+          parsedData.data.forEach((row) => {
+            const tr = document.createElement("tr");
+            Object.values(row).forEach((value) => {
+              const td = document.createElement("td");
+              td.textContent = value;
+              tr.appendChild(td);
+            });
+            table.appendChild(tr);
+          });
+        });
+    </script>
+  </body>
+</html>
