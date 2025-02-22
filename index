@@ -13,7 +13,7 @@
     <script>
       // CSV ファイルの URL（GitHub にアップした CSV の URL）
       const csvUrl =
-        "https://github.com/TeruoFujikake/react/blob/main/React.csv";
+        "https://github.com/TeruoFujikake/react/React.csv";
 
       // CSV を取得して表示
       fetch(csvUrl)
